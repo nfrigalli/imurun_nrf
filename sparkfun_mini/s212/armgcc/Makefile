@@ -117,7 +117,7 @@ INC_FOLDERS += \
 LIB_FILES += \
 
 # Optimization flags
-OPT = -O3 -g3
+OPT = -O3 -g
 # Uncomment the line below to enable link time optimization
 #OPT += -flto
 
@@ -144,7 +144,7 @@ CFLAGS += -fno-builtin -fshort-enums
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
 # Assembler flags common to all targets
-ASMFLAGS += -g3
+ASMFLAGS += -g
 ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
 ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
@@ -203,7 +203,7 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 # Flash the program
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	 arm-none-eabi-gdb --batch -ex 'target extended-remote /dev/ttyBmpGdb' -ex 'monitor swdp_scan' -ex 'attach 1' -ex 'load _build/nrf52840_xxaa.hex' -ex 'mon hard_srst' -ex 'detach' -ex 'quit'
+	 arm-none-eabi-gdb --batch -ex 'target extended-remote /dev/ttyBmpGdb' -ex 'monitor swdp_scan' -ex 'attach 1' -ex 'mon erase_mass'  -ex 'load _build/nrf52840_xxaa.hex'  -ex 'load ../../../../../../../../components/softdevice/s212/ANT_s212_nrf52_7.0.1.hex' -ex 'mon hard_srst' -ex 'detach' -ex 'quit'
 
 erase:
 	nrfjprog -f nrf52 --eraseall

@@ -1,0 +1,2 @@
+After much trying reflashing the Softdevice and the program after made it at least run and report debug messages through the UART.
+Evidence suggest I didn't flash the S212 after fixing the linker script.

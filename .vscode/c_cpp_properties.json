@@ -31,8 +31,8 @@
                 "${nrfSDK}/integration/nrfx/legacy",
                 "${nrfSDK}/components/libraries/delay",
                 "${nrfSDK}/modules/nrfx/drivers/include",
-                "${workspaceFolder}/pca10040/s212/config",
-                "${workspaceFolder}/pca10040/s212"
+                "${workspaceFolder}/sparkfun_mini/s212/config",
+                "${workspaceFolder}/sparkfun_mini/s212"
             ],
             "defines": [
                 "_DEBUG",
