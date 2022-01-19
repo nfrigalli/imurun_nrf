@@ -188,7 +188,7 @@
 // <e> ANT_HRM_PAGE_0_LOG_ENABLED - Enables logging of HRM page 0 in the module.
 //==========================================================
 #ifndef ANT_HRM_PAGE_0_LOG_ENABLED
-#define ANT_HRM_PAGE_0_LOG_ENABLED 1
+#define ANT_HRM_PAGE_0_LOG_ENABLED 0
 #endif
 // <o> ANT_HRM_PAGE_0_LOG_LEVEL  - Default Severity level
  

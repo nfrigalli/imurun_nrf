@@ -125,6 +125,7 @@ APP_TIMER_DEF(m_tick_timer);                        /**< Timer used to update cu
 /** @snippet [ANT HRM simulator button] */
 void bsp_evt_handler(bsp_event_t evt)
 {
+    NRF_LOG_INFO("Button press handler");
     switch (evt)
     {
         case BSP_EVENT_KEY_0:
@@ -297,18 +298,52 @@ static void log_init(void)
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
+/**
+ * @brief Sets reset registers as directive in makefile seems to not be working
+ * */
+static void reset_setup(){
+    uint32_t res_reg = 0x7FFFFFD2;
+    NRF_LOG_INFO("%lX",res_reg);
+    *(volatile uint32_t *)0x10001200 = res_reg;
+    NRF_UICR->PSELRESET[0]=res_reg;
+    *(volatile uint32_t *)0x10001204 = res_reg;
+    NRF_UICR->PSELRESET[1]=res_reg;
+}
+
 /**@brief Function for application main entry, does not return.
  */
 int main(void)
 {
+    char buffer[11];
+    char buffer2[11];
+    snprintf(buffer, sizeof(buffer), "0X%08lX", NRF_UICR->PSELRESET[0]);
+    snprintf(buffer2, sizeof(buffer2), "0X%08lX", NRF_UICR->PSELRESET[1]);
     utils_setup();
-    //bsp_board_led_on(0);
-    //for(;;);
     log_init();
-    NRF_LOG_INFO("1");
+    NRF_LOG_INFO("PSELRESET0 : %s", buffer);
+    NRF_LOG_INFO("PSELRESET1 : %s", buffer2);
+
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001200);
+    NRF_LOG_INFO("PSELRESET0 : %s", buffer);
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001204);
+    NRF_LOG_INFO("PSELRESET1 : %s", buffer);
+
     softdevice_setup();
     simulator_setup();
     profile_setup();
+    
+
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001200);
+    NRF_LOG_INFO("PSELRESET0 : %s", buffer);
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001204);
+    NRF_LOG_INFO("PSELRESET1 : %s", buffer);
+
+    reset_setup();
+
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001200);
+    NRF_LOG_INFO("PSELRESET0 : %s", buffer);
+    snprintf(buffer, sizeof(buffer), "0X%08lX", *(uint32_t *)0x10001204);
+    NRF_LOG_INFO("PSELRESET1 : %s", buffer);
 
     NRF_LOG_INFO("ANT+ Heart Rate TX example started.");
 
