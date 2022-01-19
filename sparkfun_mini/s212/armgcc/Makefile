@@ -126,7 +126,7 @@ CFLAGS += $(OPT)
 CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 CFLAGS += -DBOARD_SPARKFUN_NRF52840_MINI
-CFLAGS += -DCONFIG_GPIO_AS_PINRESET
+#CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
 CFLAGS += -DNRF52840_XXAA
@@ -151,7 +151,7 @@ ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ASMFLAGS += -DAPP_TIMER_V2
 ASMFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 ASMFLAGS += -DBOARD_SPARKFUN_NRF52840_MINI
-ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
+#ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52
 ASMFLAGS += -DNRF52840_XXAA
@@ -203,7 +203,7 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 # Flash the program
 flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52840_xxaa.hex
-	 arm-none-eabi-gdb --batch -ex 'target extended-remote /dev/ttyBmpGdb' -ex 'monitor swdp_scan' -ex 'attach 1' -ex 'mon erase_mass'  -ex 'load _build/nrf52840_xxaa.hex'  -ex 'load ../../../../../../../../components/softdevice/s212/ANT_s212_nrf52_7.0.1.hex' -ex 'mon hard_srst' -ex 'detach' -ex 'quit'
+	 arm-none-eabi-gdb --batch -ex 'target extended-remote /dev/ttyBmpGdb' -ex 'monitor swdp_scan' -ex 'attach 1' -ex 'mon erase_mass' -ex 'load ../../../../../../../../components/softdevice/s212/ANT_s212_nrf52_7.0.1.hex'  -ex 'load _build/nrf52840_xxaa.hex'  -ex 'mon hard_srst' -ex 'detach' -ex 'quit'
 
 erase:
 	nrfjprog -f nrf52 --eraseall
